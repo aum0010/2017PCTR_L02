@@ -29,7 +29,11 @@ public class Ball {
 		}
 		x += dx;   
 		y += dy;
-		//TODO Check postcondition
+		
+		assert x>Board.TOPBOARD;
+		assert x<Board.BOTTOMBOARD;
+		assert y>Board.LEFTBOARD;
+		assert y<Board.RIGHTBOARD;
 	}
 
 	public void reflect() {
