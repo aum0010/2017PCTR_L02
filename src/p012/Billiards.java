@@ -22,6 +22,7 @@ public class Billiards extends JFrame {
 
 	private final int N_BALL = 5;
 	private Ball[] balls;
+	private Hilo hilo;
 
 	public Billiards() {
 
@@ -54,16 +55,45 @@ public class Billiards extends JFrame {
 	}
 
 	private void initBalls() {
-		balls=new Ball[N_BALL];
-		for (int i=0;i<N_BALL;i++){
-			balls[i]=new Ball();
+		balls = new Ball[N_BALL];
+		for (int i = 0; i < N_BALL; i++) {
+			balls[i] = new Ball();
 		}
+		board.setBalls(balls);
+	}
+
+	private class Hilo extends Thread {
+
+		private Ball ball;
+
+		public Hilo(Ball ball) {
+			this.ball = ball;
+		}
+
+		@Override
+		public void run() {
+			while (true) {
+				try {
+					ball.move();
+					ball.reflect();
+					board.repaint();
+					Thread.sleep(10);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					return;
+				}
+			}
+		}
+
 	}
 
 	private class StartListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			// TODO Code is executed when start button is pushed
+			for (int i = 0; i < N_BALL; i++) {
+				hilo = new Hilo(balls[i]);
+				hilo.start();
+			}
 
 		}
 	}
