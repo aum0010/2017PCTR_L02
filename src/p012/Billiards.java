@@ -22,7 +22,7 @@ public class Billiards extends JFrame {
 
 	private final int N_BALL = 5;
 	private Ball[] balls;
-	private Hilo hilo;
+	private Hilo[] hilos;
 
 	public Billiards() {
 
@@ -90,9 +90,10 @@ public class Billiards extends JFrame {
 	private class StartListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
+			hilos = new Hilo[N_BALL];
 			for (int i = 0; i < N_BALL; i++) {
-				hilo = new Hilo(balls[i]);
-				hilo.start();
+				hilos[i] = new Hilo(balls[i]);
+				hilos[i].start();
 			}
 
 		}
@@ -101,7 +102,9 @@ public class Billiards extends JFrame {
 	private class StopListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			// TODO Code is executed when stop button is pushed
+			for (int i = 0; i < N_BALL; i++) {
+				hilos[i].interrupt();
+			}
 
 		}
 	}
