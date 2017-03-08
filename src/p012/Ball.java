@@ -36,7 +36,7 @@ public class Ball {
 		assert y<Board.RIGHTBOARD;
 	}
 
-	public void reflect() {
+	public synchronized void reflect() {
 		if (Math.abs(x + 32 - Board.RIGHTBOARD) <  Math.abs(dx)) {
 			fi = Math.PI - fi;
 		}
